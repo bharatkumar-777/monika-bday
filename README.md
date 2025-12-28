@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Happy Birthday Monika! 🎉
+
+A beautiful, animated birthday website with a countdown timer, splash animation, and a journey through memories.
+
+## Features
+
+- ⏰ **Full-screen countdown timer** - Mobile responsive countdown to the special day
+- 🎉 **Splash animation** - Animated "Happy Birthday" message with Framer Motion
+- 📖 **Journey pages** - 10 pages including:
+  - Introduction page
+  - 4 Memory pages (with photos and stories)
+  - Epilogue page with rotating gallery of photos and videos
+- 🎨 **Beautiful animations** - Powered by Framer Motion
+- 🎬 **Lottie support** - Ready for Lottie animations
+- 📱 **Mobile responsive** - Works perfectly on all devices
+
+## Theme Colors
+
+- **Blue**: `#5A9CB5`
+- **Yellow**: `#FACE68`
+- **Red**: `#FA6868`
+- **Light Black**: `#2a2a2a`
+- **Off White**: `#f5f5f5`
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add your content:
+   - Place photos in `/public/assets/photos/`
+   - Place videos in `/public/assets/videos/`
+   - Place Lottie JSON files in `/public/assets/lottie/`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Update the countdown timer date in `/src/app/page.tsx`:
+```typescript
+const targetDate = new Date();
+targetDate.setDate(targetDate.getDate() + 1); // Change this to your target date
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Add your photos and stories:
+   - Edit memory pages in `/src/app/journey/memory1/` through `/memory4/`
+   - Replace placeholder text with your stories
+   - Update image paths to point to your photos
 
-## Learn More
+5. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+monika-bday/
+├── public/
+│   └── assets/
+│       ├── photos/      # Add your photos here
+│       ├── videos/      # Add your videos here
+│       └── lottie/      # Add Lottie JSON files here
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              # Main page with timer and splash
+│   │   └── journey/
+│   │       ├── page.tsx         # Journey overview
+│   │       ├── intro/           # Introduction page
+│   │       ├── memory1/         # Memory page 1
+│   │       ├── memory2/         # Memory page 2
+│   │       ├── memory3/         # Memory page 3
+│   │       ├── memory4/         # Memory page 4
+│   │       └── epilogue/        # Epilogue with gallery
+│   └── components/
+│       ├── Timer.tsx            # Countdown timer component
+│       ├── SplashAnimation.tsx  # Happy birthday animation
+│       ├── JourneyButton.tsx    # Navigation button
+│       └── LottieAnimation.tsx  # Lottie animation wrapper
+```
 
-## Deploy on Vercel
+## Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Adding Photos to Memory Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In each memory page (e.g., `memory1/page.tsx`), uncomment and update the Image component:
+
+```tsx
+<Image
+  src="/assets/photos/memory1.jpg"
+  alt="Memory 1"
+  fill
+  className="object-cover"
+/>
+```
+
+### Adding Videos to Epilogue
+
+In `epilogue/page.tsx`, uncomment and update the video element:
+
+```tsx
+<video
+  src="/assets/videos/video1.mp4"
+  className="h-full w-full object-cover"
+  controls
+/>
+```
+
+### Adding Lottie Animations
+
+1. Place your Lottie JSON file in `/public/assets/lottie/`
+2. Use the `LottieAnimation` component:
+
+```tsx
+import LottieAnimation from '@/components/LottieAnimation';
+import animationData from '@/public/assets/lottie/birthday.json';
+
+<LottieAnimation animationData={animationData} />
+```
+
+## Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Technologies Used
+
+- **Next.js 16** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
+- **Lottie React** - Lottie animations support
+
+## Notes
+
+- All pages are mobile responsive
+- The timer automatically transitions to the splash animation when it reaches zero
+- The epilogue page features a rotating gallery with randomly positioned photos and videos
+- All animations are smooth and performant
+
+Enjoy creating this special birthday surprise! 🎂✨
