@@ -158,44 +158,71 @@ export default function RotatingGallery({
   useEffect(() => {
     // Get assets from config - use pageName if provided, otherwise get from all pages
     const assetSources = getRandomAssets(pageName, itemCount);
+    
+    // Calculate base size to determine safe positioning bounds
+    const baseSize = Math.min(dimensions.width, dimensions.height) * 0.25;
+    const maxSize = baseSize * 1.8; // Maximum size (100% + 80% variation)
+    // Account for rotation - use diagonal for safety
+    const maxEffectiveSize = maxSize * 1.5;
+    const maxHalfSize = maxEffectiveSize / 2;
+    
+    // Calculate safe bounds in percentage (accounting for item size and rotation)
+    // Use smaller margin to allow more coverage
+    const marginX = Math.max(5, (maxHalfSize / dimensions.width) * 100);
+    const marginY = Math.max(5, (maxHalfSize / dimensions.height) * 100);
+    const safeMinX = marginX;
+    const safeMaxX = 100 - marginX;
+    const safeMinY = marginY;
+    const safeMaxY = 100 - marginY;
 
     // Generate random items with random positions scattered across the screen
     const generatedItems: GalleryItem[] = Array.from({ length: itemCount }, (_, i) => {
-      // Random position - can extend beyond screen (negative and >100%)
-      // Center area (30-70% x, 30-70% y) is reserved for content
       let x, y;
-      const attempts = 10;
-      let validPosition = false;
       
-      for (let attempt = 0; attempt < attempts; attempt++) {
-        x = (Math.random() - 0.2) * 140; // -20% to 120% (extends beyond screen)
-        y = (Math.random() - 0.2) * 140; // -20% to 120%
-        
-        // Avoid center area where content will be (but allow some overlap)
-        const centerX = 50;
-        const centerY = 50;
-        const centerRadius = 25; // 25% radius around center
-        
-        const distanceFromCenter = Math.sqrt(
-          Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
-        );
-        
-        // Allow some items in center area but prefer outside
-        if (distanceFromCenter > centerRadius || Math.random() > 0.7) {
-          validPosition = true;
+      // Distribute items across different zones of the screen
+      const zone = Math.floor(Math.random() * 8); // 8 zones around the center
+      
+      switch (zone) {
+        case 0: // Top-left
+          x = safeMinX + Math.random() * (40 - safeMinX);
+          y = safeMinY + Math.random() * (40 - safeMinY);
           break;
-        }
+        case 1: // Top-center
+          x = 40 + Math.random() * 20;
+          y = safeMinY + Math.random() * (40 - safeMinY);
+          break;
+        case 2: // Top-right
+          x = 60 + Math.random() * (safeMaxX - 60);
+          y = safeMinY + Math.random() * (40 - safeMinY);
+          break;
+        case 3: // Middle-left
+          x = safeMinX + Math.random() * (40 - safeMinX);
+          y = 40 + Math.random() * 20;
+          break;
+        case 4: // Middle-right
+          x = 60 + Math.random() * (safeMaxX - 60);
+          y = 40 + Math.random() * 20;
+          break;
+        case 5: // Bottom-left
+          x = safeMinX + Math.random() * (40 - safeMinX);
+          y = 60 + Math.random() * (safeMaxY - 60);
+          break;
+        case 6: // Bottom-center
+          x = 40 + Math.random() * 20;
+          y = 60 + Math.random() * (safeMaxY - 60);
+          break;
+        case 7: // Bottom-right
+          x = 60 + Math.random() * (safeMaxX - 60);
+          y = 60 + Math.random() * (safeMaxY - 60);
+          break;
+        default:
+          x = safeMinX + Math.random() * (safeMaxX - safeMinX);
+          y = safeMinY + Math.random() * (safeMaxY - safeMinY);
       }
       
-      if (!validPosition) {
-        // Fallback: place at edges
-        x = Math.random() < 0.5 ? Math.random() * 20 : 80 + Math.random() * 20;
-        y = Math.random() < 0.5 ? Math.random() * 20 : 80 + Math.random() * 20;
-      }
-      
-      // Ensure x and y are defined
-      if (x === undefined) x = Math.random() * 100;
-      if (y === undefined) y = Math.random() * 100;
+      // Ensure values are within bounds
+      x = Math.max(safeMinX, Math.min(safeMaxX, x));
+      y = Math.max(safeMinY, Math.min(safeMaxY, y));
 
       const baseRotation = (Math.random() - 0.5) * 40; // Random rotation between -20 and 20 degrees
       const hoverRotationOffset = (Math.random() > 0.5 ? 10 : -10); // Random hover rotation offset
@@ -222,9 +249,9 @@ export default function RotatingGallery({
   }, [itemCount, dimensions, pageName]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-screen w-screen overflow-hidden">
       {/* Rotating Gallery Items - scattered randomly across screen */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" style={{ width: '100vw', height: '100vh' }}>
         {items.map((item, index) => {
           // Base size that scales with screen size
           const baseSize = Math.min(dimensions.width, dimensions.height) * 0.25;

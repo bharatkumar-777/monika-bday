@@ -10,9 +10,8 @@ export default function Home() {
   const [showSplash, setShowSplash] = useState(false);
   const [showJourneyButton, setShowJourneyButton] = useState(false);
 
-  // Set target date (you can modify this)
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 0); // Example: 1 day from now
+  // Set target date to January 1, 2026
+  const targetDate = new Date('2026-01-01T00:00:00');
 
   const handleTimerComplete = () => {
     setShowTimer(false);
