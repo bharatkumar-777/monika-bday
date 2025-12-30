@@ -47,7 +47,7 @@ export default function SplashAnimation({ onComplete }: SplashAnimationProps) {
   const letters = word.split('');
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#FACE68] via-[#FA6868] to-[#5A9CB5]">
+    <div className="flex min-h-screen items-center justify-center bg-[url(/assets/photos/photosIntro.png)] bg-cover bg-center">
       {showContent && (
         <motion.div
           variants={containerVariants}

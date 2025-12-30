@@ -54,14 +54,15 @@ export default function Timer({ targetDate, onComplete }: TimerProps) {
   ];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#5A9CB5] via-[#FACE68] to-[#FA6868] p-4">
+    <div className="flex min-h-screen relative items-center justify-center  bg-[url(/assets/photos/photosIntro.png)] bg-cover bg-center p-4">
+      <div className='absolute inset-0 bg-black opacity-50'></div>
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl"
+        className="w-full max-w-4xl z-200"
       >
-        <h1 className="mb-8 text-center text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
+        <h1 className="mb-8 text-center font-['Barrio'] text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl z-200">
           Countdown to Your Special Day
         </h1>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -77,11 +78,11 @@ export default function Timer({ targetDate, onComplete }: TimerProps) {
                 key={unit.value}
                 initial={{ scale: 1.2 }}
                 animate={{ scale: 1 }}
-                className="text-4xl font-bold text-[#5A9CB5] sm:text-5xl md:text-6xl lg:text-7xl"
+                className="text-4xl  font-['Delius'] text-[#ff2998] sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 {String(unit.value).padStart(2, '0')}
               </motion.div>
-              <div className="mt-2 text-sm font-semibold uppercase tracking-wider text-[#2a2a2a] sm:text-base md:text-lg">
+              <div className="mt-2 text-sm font-semibold font-['Delius'] uppercase tracking-wider text-[#2a2a2a] sm:text-base md:text-lg">
                 {unit.label}
               </div>
             </motion.div>

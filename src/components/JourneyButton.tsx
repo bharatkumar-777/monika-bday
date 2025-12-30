@@ -15,12 +15,13 @@ export default function JourneyButton() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="rounded-full bg-gradient-to-r from-[#5A9CB5] via-[#FACE68] to-[#FA6868] px-8 py-4 text-xl font-bold text-white shadow-2xl transition-all hover:shadow-3xl sm:px-12 sm:py-5 sm:text-2xl"
+          className="rounded-full border-2 w-[300px] h-[100px] text-center items-center justify-center border-white font-['Barrio'] bg-[rgba(136,203,195,0.59)] px-8 py-4 text-xl font-bold text-white shadow-2xl transition-all hover:shadow-3xl sm:px-12 sm:py-5 sm:text-2xl"
           style={{
             boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            backdropFilter: 'blur(10px)',
           }}
         >
-          Explore Our Journey
+          Isko Dba
         </motion.button>
       </Link>
     </motion.div>

@@ -23,7 +23,7 @@ export default function Home() {
     setShowJourneyButton(true);
   };
 
-  if (showTimer) {
+  if (false) {
     return <Timer targetDate={targetDate} onComplete={handleTimerComplete} />;
   }
 
@@ -32,7 +32,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#5A9CB5] via-[#FACE68] to-[#FA6868] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[url(/assets/photos/photosIntro.png)] bg-cover bg-center p-4">
       <JourneyButton />
     </div>
   );
