@@ -9,7 +9,7 @@ export default function Memory3Page() {
     <div className="relative h-screen bg-[#5A9CB5] overflow-hidden">
       <RotatingGallery 
         pageName="memory3"
-        itemCount={10}
+        itemCount={6}
         radius={450}
         centerContent={
           <motion.div

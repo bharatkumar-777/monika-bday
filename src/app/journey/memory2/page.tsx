@@ -9,7 +9,7 @@ export default function Memory2Page() {
     <div className="relative h-screen bg-[#FA6868] overflow-hidden">
       <RotatingGallery 
         pageName="memory2"
-        itemCount={10}
+        itemCount={6}
         radius={450}
         centerContent={
           <motion.div

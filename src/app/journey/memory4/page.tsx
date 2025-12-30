@@ -9,7 +9,7 @@ export default function Memory4Page() {
     <div className="relative h-screen bg-[#FACE68] overflow-hidden">
       <RotatingGallery 
         pageName="memory4"
-        itemCount={10}
+        itemCount={6}
         radius={450}
         centerContent={
           <motion.div

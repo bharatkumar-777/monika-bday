@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import LottieAnimation from './LottieAnimation';
 
 interface TimerProps {
   targetDate: Date;
@@ -16,6 +17,15 @@ export default function Timer({ targetDate, onComplete }: TimerProps) {
     seconds: 0,
   });
   const [isComplete, setIsComplete] = useState(false);
+  const [animationData, setAnimationData] = useState<any>(null);
+
+  useEffect(() => {
+    // Load Lottie animation
+    fetch('/assets/lottie/annnnn.lottie')
+      .then(res => res.json())
+      .then(data => setAnimationData(data))
+      .catch(err => console.error('Error loading Lottie animation:', err));
+  }, []);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -56,11 +66,21 @@ export default function Timer({ targetDate, onComplete }: TimerProps) {
   return (
     <div className="flex min-h-screen relative items-center justify-center  bg-[url(/assets/photos/photosIntro.png)] bg-cover bg-center p-4">
       <div className='absolute inset-0 bg-black opacity-50'></div>
+      {animationData && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <LottieAnimation 
+            animationData={animationData} 
+            className="w-full h-full max-w-2xl max-h-2xl opacity-80"
+            loop={true}
+            autoplay={true}
+          />
+        </div>
+      )}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl z-200"
+        className="w-full max-w-4xl z-200 relative"
       >
         <h1 className="mb-8 text-center font-['Barrio'] text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl z-200">
           Countdown to Your Special Day

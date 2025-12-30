@@ -159,8 +159,8 @@ export default function RotatingGallery({
     // Get assets from config - use pageName if provided, otherwise get from all pages
     const assetSources = getRandomAssets(pageName, itemCount);
     
-    // Calculate base size to determine safe positioning bounds
-    const baseSize = Math.min(dimensions.width, dimensions.height) * 0.25;
+    // Calculate base size to determine safe positioning bounds - increased size
+    const baseSize = Math.min(dimensions.width, dimensions.height) * 0.4; // Increased from 0.25 to 0.4
     const maxSize = baseSize * 1.8; // Maximum size (100% + 80% variation)
     // Account for rotation - use diagonal for safety
     const maxEffectiveSize = maxSize * 1.5;
@@ -168,61 +168,73 @@ export default function RotatingGallery({
     
     // Calculate safe bounds in percentage (accounting for item size and rotation)
     // Use smaller margin to allow more coverage
-    const marginX = Math.max(5, (maxHalfSize / dimensions.width) * 100);
-    const marginY = Math.max(5, (maxHalfSize / dimensions.height) * 100);
+    const marginX = Math.max(8, (maxHalfSize / dimensions.width) * 100);
+    const marginY = Math.max(8, (maxHalfSize / dimensions.height) * 100);
     const safeMinX = marginX;
     const safeMaxX = 100 - marginX;
     const safeMinY = marginY;
     const safeMaxY = 100 - marginY;
 
-    // Generate random items with random positions scattered across the screen
+    // Generate random items with positions truly scattered across all areas of the screen
+    const centerAvoidance = 25; // Percentage to avoid around center (where content card is)
+    
+    // Define position templates for different screen areas
+    const positionTemplates = [
+      { baseX: 12, baseY: 12, rangeX: 8, rangeY: 8, name: 'top-left' },
+      { baseX: 88, baseY: 12, rangeX: 8, rangeY: 8, name: 'top-right' },
+      { baseX: 12, baseY: 88, rangeX: 8, rangeY: 8, name: 'bottom-left' },
+      { baseX: 88, baseY: 88, rangeX: 8, rangeY: 8, name: 'bottom-right' },
+      { baseX: 8, baseY: 50, rangeX: 4, rangeY: 20, name: 'left-center' },
+      { baseX: 92, baseY: 50, rangeX: 4, rangeY: 20, name: 'right-center' },
+      { baseX: 50, baseY: 8, rangeX: 20, rangeY: 4, name: 'top-center' },
+      { baseX: 50, baseY: 92, rangeX: 20, rangeY: 4, name: 'bottom-center' },
+    ];
+    
+    // Shuffle templates to randomize assignment
+    const shuffledTemplates = [...positionTemplates].sort(() => Math.random() - 0.5);
+    
     const generatedItems: GalleryItem[] = Array.from({ length: itemCount }, (_, i) => {
       let x, y;
       
-      // Distribute items across different zones of the screen
-      const zone = Math.floor(Math.random() * 8); // 8 zones around the center
+      // Get template for this item
+      const template = shuffledTemplates[i % shuffledTemplates.length];
       
-      switch (zone) {
-        case 0: // Top-left
-          x = safeMinX + Math.random() * (40 - safeMinX);
-          y = safeMinY + Math.random() * (40 - safeMinY);
-          break;
-        case 1: // Top-center
-          x = 40 + Math.random() * 20;
-          y = safeMinY + Math.random() * (40 - safeMinY);
-          break;
-        case 2: // Top-right
-          x = 60 + Math.random() * (safeMaxX - 60);
-          y = safeMinY + Math.random() * (40 - safeMinY);
-          break;
-        case 3: // Middle-left
-          x = safeMinX + Math.random() * (40 - safeMinX);
-          y = 40 + Math.random() * 20;
-          break;
-        case 4: // Middle-right
-          x = 60 + Math.random() * (safeMaxX - 60);
-          y = 40 + Math.random() * 20;
-          break;
-        case 5: // Bottom-left
-          x = safeMinX + Math.random() * (40 - safeMinX);
-          y = 60 + Math.random() * (safeMaxY - 60);
-          break;
-        case 6: // Bottom-center
-          x = 40 + Math.random() * 20;
-          y = 60 + Math.random() * (safeMaxY - 60);
-          break;
-        case 7: // Bottom-right
-          x = 60 + Math.random() * (safeMaxX - 60);
-          y = 60 + Math.random() * (safeMaxY - 60);
-          break;
-        default:
-          x = safeMinX + Math.random() * (safeMaxX - safeMinX);
-          y = safeMinY + Math.random() * (safeMaxY - safeMinY);
+      // Generate random position based on template
+      if (template.baseX < 50) {
+        // Left side - add random
+        x = template.baseX + Math.random() * template.rangeX;
+      } else {
+        // Right side - subtract random
+        x = template.baseX - Math.random() * template.rangeX;
       }
       
-      // Ensure values are within bounds
-      x = Math.max(safeMinX, Math.min(safeMaxX, x));
-      y = Math.max(safeMinY, Math.min(safeMaxY, y));
+      if (template.baseY < 50) {
+        // Top side - add random
+        y = template.baseY + Math.random() * template.rangeY;
+      } else {
+        // Bottom side - subtract random
+        y = template.baseY - Math.random() * template.rangeY;
+      }
+      
+      // Ensure we avoid the center area (where content card is)
+      // Push outward if too close to center
+      if (x > 50 - centerAvoidance && x < 50 + centerAvoidance) {
+        x = x < 50 
+          ? 50 - centerAvoidance - Math.random() * 10 
+          : 50 + centerAvoidance + Math.random() * 10;
+      }
+      if (y > 50 - centerAvoidance && y < 50 + centerAvoidance) {
+        y = y < 50 
+          ? 50 - centerAvoidance - Math.random() * 10 
+          : 50 + centerAvoidance + Math.random() * 10;
+      }
+      
+      // Clamp to safe bounds
+      x = Math.max(5, Math.min(95, x));
+      y = Math.max(5, Math.min(95, y));
+      
+      // Debug: log final positions
+      console.log(`Item ${i} (${template.name}): x=${x.toFixed(1)}%, y=${y.toFixed(1)}%`);
 
       const baseRotation = (Math.random() - 0.5) * 40; // Random rotation between -20 and 20 degrees
       const hoverRotationOffset = (Math.random() > 0.5 ? 10 : -10); // Random hover rotation offset
@@ -251,10 +263,10 @@ export default function RotatingGallery({
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Rotating Gallery Items - scattered randomly across screen */}
-      <div className="absolute inset-0 overflow-hidden" style={{ width: '100vw', height: '100vh' }}>
+      <div className="absolute  inset-0 overflow-hidden" >
         {items.map((item, index) => {
-          // Base size that scales with screen size
-          const baseSize = Math.min(dimensions.width, dimensions.height) * 0.25;
+          // Base size that scales with screen size - increased size
+          const baseSize = Math.min(dimensions.width, dimensions.height) * 0.4; // Increased from 0.25 to 0.4
           const size = baseSize * item.size;
 
           return (
