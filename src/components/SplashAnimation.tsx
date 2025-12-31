@@ -60,7 +60,7 @@ export default function SplashAnimation({ onComplete }: SplashAnimationProps) {
               <motion.span
                 key={index}
                 variants={letterVariants}
-                className="text-5xl font-bold text-white drop-shadow-2xl sm:text-6xl md:text-7xl lg:text-8xl"
+                className="text-5xl font-['Barrio'] font-bold text-white drop-shadow-2xl sm:text-6xl md:text-7xl lg:text-8xl"
                 style={{
                   textShadow: '4px 4px 8px rgba(0,0,0,0.3)',
                 }}
@@ -85,7 +85,7 @@ export default function SplashAnimation({ onComplete }: SplashAnimationProps) {
                 repeat: Infinity,
                 repeatType: 'reverse',
               }}
-              className="text-3xl font-semibold text-white sm:text-4xl md:text-5xl"
+              className="text-3xl font-['Barrio'] font-semibold text-white sm:text-4xl md:text-5xl"
               style={{
                 textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
               }}
