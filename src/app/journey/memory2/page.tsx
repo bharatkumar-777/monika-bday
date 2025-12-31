@@ -6,7 +6,7 @@ import RotatingGallery from '@/components/RotatingGallery';
 
 export default function Memory2Page() {
   return (
-    <div className="relative h-screen bg-[#f5f5f5] bg-cover bg-center bg-[url(/assets/photos/intro/IMG_0124.jpg)] overflow-hidden">
+    <div className="relative h-screen bg-[#f5f5f5] bg-cover bg-center bg-[url(/assets/photos/intro/IMG_0094.jpg)] overflow-hidden">
       <div className='absolute inset-0 bg-black opacity-50 z-0'></div>
       <RotatingGallery 
         pageName="memory2"
@@ -17,33 +17,41 @@ export default function Memory2Page() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.5 }}
-            className="mx-auto max-w-2xl rounded-3xl bg-white/10 border-2 border-white p-8 shadow-2xl backdrop-blur-sm sm:p-12"
+            className="mx-auto max-w-4xl rounded-3xl bg-white/10 border-2 border-white p-8 shadow-2xl backdrop-blur-sm sm:p-12"
           >
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.7 }}
-              className="mb-6 text-center font-['Barrio'] text-4xl font-bold text-[#9cdbf1] sm:text-5xl md:text-6xl"
+              className="mb-6 text-center font-['Barrio'] text-2xl font-bold text-[#9cf1cb] sm:text-5xl md:text-6xl"
             >
-              Memory 2
+            Why You are my Best Friend
             </motion.h1>
+           
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.9 }}
-              className="mb-4 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
+              transition={{ delay: 2.1 }}
+              className="mb-2 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
             >
-              Share your second memory story here. This could be about a special event,
-              a funny moment, or a meaningful experience you shared together.
+              You are the kind of friend people Dream of <br/>
+             you are the kind of friend people search for <br/>
+             and you are the kind of friend i am lucky to have 😭
             </motion.p>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.1 }}
-              className="mb-8 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
+              className="mb-2 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
             >
-              Add details, emotions, and what made this moment unforgettable.
+              yeah me upar islie keh rha hu kyunki, jis hisab se tumne mere saath raaton ko dukh share kia, 
+              jis hisab se tumne mere ko har baat share ki ❤️, 
+              me apne ko bhut aise previlege maanta hu ki tumne mere ko iss layak samjha 💕,
+              mere ko to aise taras aata ki jo bond humare bich me raha he vo logo ko mil hi nhi paata 🥲. 
+              unko pata hi nhi hoota ki aisi life bhi hooti he jisme tumare jaise log life me aate he 🤭. 
+
             </motion.p>
+         
 
             <motion.div
               initial={{ opacity: 0 }}

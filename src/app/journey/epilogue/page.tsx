@@ -6,7 +6,7 @@ import RotatingGallery from '@/components/RotatingGallery';
 
 export default function EpiloguePage() {
   return (
-    <div className="relative h-screen bg-[#f5f5f5] bg-cover bg-center bg-[url(/assets/photos/intro/IMG_0124.jpg)] overflow-hidden">
+    <div className="relative h-screen bg-[#f5f5f5] bg-cover bg-center bg-[url(/assets/photos/photosIntro.png)] overflow-hidden">
       <div className='absolute inset-0 bg-black opacity-50 z-0'></div>
       <RotatingGallery 
         pageName="epilogue"
@@ -17,7 +17,7 @@ export default function EpiloguePage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.5 }}
-            className="mx-auto max-w-2xl rounded-3xl bg-white/10 border-2 border-white p-8 shadow-2xl backdrop-blur-sm sm:p-12"
+            className="mx-auto max-w-3xl rounded-3xl bg-black/10 border-2 border-white p-8 shadow-2xl backdrop-blur-sm sm:p-12"
           >
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
@@ -34,17 +34,20 @@ export default function EpiloguePage() {
               className="mb-4 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
             >
               As we reach the end of this journey, I want you to know how much these
-              memories mean to me. Each moment we've shared has been a treasure, and
-              I'm grateful for every laugh, every adventure, and every memory we've created together.
+              memories mean to me. Each moment we've shared has been a treasure.
             </motion.p>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.1 }}
-              className="mb-4 text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
+              className="mb-4 font-bold text-center text-lg leading-relaxed font-['Delius'] text-white sm:text-xl"
             >
-              This gallery represents just a glimpse of our beautiful journey. May we
-              continue to create many more wonderful memories together.
+              Me bus last me yeah kehna chahta ki. 
+              Me tumahre lie humesha khada hu. 
+              jab jab tumhe lage ki mere khilaf puri dunia he. 
+              jab tumhe lage ki mera dukh sunne waala koi nhi he. 
+              tab yaad rakhna ki Me hu. 
+              Me Humesha hu. kahi bhi kabhi bhi kisi bhi situation me. me tumare ko apne aap se jyada priority dunga aur tumara saath dunga. 
             </motion.p>
             <motion.p
               initial={{ opacity: 0 }}
