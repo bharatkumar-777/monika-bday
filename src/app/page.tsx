@@ -23,7 +23,7 @@ export default function Home() {
     setShowJourneyButton(true);
   };
 
-  if (false) {
+  if (showTimer) {
     return <Timer targetDate={targetDate} onComplete={handleTimerComplete} />;
   }
 
